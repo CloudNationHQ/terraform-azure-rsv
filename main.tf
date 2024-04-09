@@ -19,7 +19,7 @@ resource "azurerm_backup_policy_file_share" "policy" {
     lookup(var.vault, "policies", {}), "file_shares", {}
   )
 
-  name                = each.value.name
+  name                = try(each.value.name, join("-", [var.naming.recovery_services_vault_backup_policy, each.key]))
   resource_group_name = coalesce(try(var.vault.resourcegroup, null), var.resourcegroup)
   recovery_vault_name = azurerm_recovery_services_vault.vault.name
   timezone            = try(each.value.timezone, "UTC")

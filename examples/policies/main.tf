@@ -18,9 +18,8 @@ module "rg" {
 }
 
 module "rsv" {
-  #source  = "cloudnationhq/rsv/azure"
-  #version = "~> 0.1"
-  source = "../../"
+  source  = "cloudnationhq/rsv/azure"
+  version = "~> 0.1"
 
   naming = local.naming
 
@@ -30,7 +29,7 @@ module "rsv" {
     resourcegroup = module.rg.groups.demo.name
 
     policies = {
-      vms = {
+      file_shares = {
         pol1 = {
           timezone = "UTC"
           backup = {
@@ -39,7 +38,16 @@ module "rsv" {
           }
           retention = {
             daily = {
-              count = 7
+              count = 3
+            }
+            weekly = {
+              count    = 2
+              weekdays = ["Monday", "Tuesday"]
+            }
+            monthly = {
+              count    = 1
+              weekdays = ["Monday"]
+              weeks    = ["First"]
             }
           }
         }

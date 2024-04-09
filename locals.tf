@@ -5,8 +5,7 @@ locals {
         resource_group_name = var.vault.resourcegroup
         recovery_vault_name = var.vault.name,
         source_vm_id        = vm_details.id,
-        #policy_name         = policy_name
-        name = try(policy_name, var.naming.recovery_services_vault_backup_policy)
+        name                = try(policy_name, var.naming.recovery_services_vault_backup_policy)
       }
     }
   ]...)
