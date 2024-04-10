@@ -9,7 +9,7 @@ resource "azurerm_recovery_services_vault" "vault" {
   cross_region_restore_enabled       = try(var.vault.cross_region_restore_enabled, null)
   storage_mode_type                  = try(var.vault.storage_mode_type, "GeoRedundant")
   public_network_access_enabled      = try(var.vault.public_network_access_enabled, true)
-  classic_vmware_replication_enabled = try(var.vault.classic_vmware_replication_enabled, false)
+  classic_vmware_replication_enabled = try(var.vault.classic_vmware_replication_enabled, null)
   tags                               = try(var.vault.tags, var.tags, null)
 }
 
