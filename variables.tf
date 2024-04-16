@@ -26,3 +26,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "storage_account_id" {
+  description = "storage account id to be used to manages registration of a storage account with an Azure Recovery Vault"
+  type        = string
+  default     = null
+}

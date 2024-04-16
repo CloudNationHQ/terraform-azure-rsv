@@ -7,7 +7,7 @@ Several Vms are created in the below example:
 ```hcl
 module "vm" {
   source  = "cloudnationhq/vm/azure"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   naming        = local.naming
   keyvault      = module.kv.vault.id

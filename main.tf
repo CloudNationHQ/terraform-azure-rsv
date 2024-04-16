@@ -130,3 +130,23 @@ resource "azurerm_backup_protected_vm" "vm" {
   source_vm_id        = each.value.source_vm_id
   backup_policy_id    = azurerm_backup_policy_vm.policy[each.value.policy_name].id
 }
+
+# Container Backup Container
+resource "azurerm_backup_container_storage_account" "container" {
+  # for_each = local.protected_file_share_map
+
+  resource_group_name = coalesce(lookup(var.vault, "resourcegroup", null), var.resourcegroup)
+  recovery_vault_name = var.vault.name
+  storage_account_id  = var.storage_account_id
+}
+
+# FileShare Backup
+resource "azurerm_backup_protected_file_share" "file_share" {
+  for_each = local.protected_file_share_map
+
+  resource_group_name       = each.value.resource_group_name
+  recovery_vault_name       = each.value.recovery_vault_name
+  source_storage_account_id = each.value.source_storage_account_id
+  source_file_share_name    = each.value.source_file_share_name
+  backup_policy_id          = each.value.backup_policy_id
+}
