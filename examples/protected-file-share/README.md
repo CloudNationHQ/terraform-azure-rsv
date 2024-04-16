@@ -47,7 +47,7 @@ odule "storage" {
 ```
 
 
-In the below example, a policy of type file share is created.
+In the below example, a policy of type file share is created, it also create a Backup Container which assosiates the Azure Storage account to be part of the Recovery Service Vault
 
 ```hcl
 module "rsv" {
@@ -102,15 +102,4 @@ locals {
   }
 }
 
-```
-
-The module output below is needed, because we iterate over the VM module.
-
-```hcl
-output "instance" {
-  sensitive = true
-  value = {
-    for k, module_instance in module.vm : k => module_instance.instance
-  }
-}
 ```
