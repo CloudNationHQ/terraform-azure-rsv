@@ -58,10 +58,9 @@ module "storage" {
 
 
 module "rsv" {
-  # source = "git::https://github.com/CloudNationHQ/terraform-azure-rsv.git?ref=feat/enable-fileshare-backup"
-  # source = "cloudnationhq/rsv/azure"
-  # version = "~> 0.1"
-  source = "../../"
+
+  source  = "cloudnationhq/rsv/azure"
+  version = "~> 0.1"
 
   naming                   = local.naming
   storage_account_id       = module.storage.account.id
