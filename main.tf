@@ -132,21 +132,24 @@ resource "azurerm_backup_protected_vm" "vm" {
 }
 
 # Container Backup Container
-resource "azurerm_backup_container_storage_account" "container" {
-  # for_each = local.protected_file_share_map
+resource "azurerm_backup_container_storage_account" "rsv_registration" {
+  count = var.enable_file_share_backup ? 1 : 0
 
   resource_group_name = coalesce(lookup(var.vault, "resourcegroup", null), var.resourcegroup)
   recovery_vault_name = var.vault.name
   storage_account_id  = var.storage_account_id
+  depends_on          = [azurerm_recovery_services_vault.vault]
 }
 
-# FileShare Backup
+# # FileShare Backup
 resource "azurerm_backup_protected_file_share" "file_share" {
-  for_each = local.protected_file_share_map
 
-  resource_group_name       = each.value.resource_group_name
-  recovery_vault_name       = each.value.recovery_vault_name
-  source_storage_account_id = each.value.source_storage_account_id
-  source_file_share_name    = each.value.source_file_share_name
-  backup_policy_id          = each.value.backup_policy_id
+  for_each = toset(var.file_shares)
+
+  resource_group_name       = var.vault.resourcegroup
+  recovery_vault_name       = var.vault.name
+  source_storage_account_id = var.storage_account_id
+  source_file_share_name    = each.value
+  backup_policy_id          = azurerm_backup_policy_file_share.policy[each.value].id
+  depends_on                = [azurerm_backup_container_storage_account.rsv_registration]
 }

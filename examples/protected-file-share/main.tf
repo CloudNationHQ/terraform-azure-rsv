@@ -2,7 +2,7 @@ module "naming" {
   source  = "cloudnationhq/naming/azure"
   version = "~> 0.1"
 
-  suffix = ["demo", "prd"]
+  suffix = ["hello", "devil"]
 }
 
 module "rg" {
@@ -38,19 +38,15 @@ module "storage" {
         authentication_types = ["Kerberos"]
       }
 
-      retention_policy = {
-        days = 30
-      }
-
       shares = {
         share1 = {
-          quota = 512
+          quota = 5
           metadata = {
             environment = "PRD"
           }
         },
         share2 = {
-          quota = 512
+          quota = 5
           metadata = {
             environment = "PRD"
           }
@@ -62,18 +58,21 @@ module "storage" {
 
 
 module "rsv" {
-  source = "git::https://github.com/CloudNationHQ/terraform-azure-rsv.git?ref=feat/enable-fileshare-backup"
+  # source = "git::https://github.com/CloudNationHQ/terraform-azure-rsv.git?ref=feat/enable-fileshare-backup"
   # source = "cloudnationhq/rsv/azure"
   # version = "~> 0.1"
+  source = "../../"
 
-  naming             = local.naming
-  storage_account_id = module.storage.account.id
+  naming                   = local.naming
+  storage_account_id       = module.storage.account.id
+  file_shares              = local.share_names
+  enable_file_share_backup = true
+
 
   vault = {
     name          = module.naming.recovery_services_vault.name
     location      = module.rg.groups.demo.location
     resourcegroup = module.rg.groups.demo.name
-
-    policies = local.policies
+    policies      = local.policies
   }
 }

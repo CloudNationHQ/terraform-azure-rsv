@@ -1,7 +1,7 @@
 locals {
   policies = {
     file_shares = {
-      pol1 = {
+      for share_names in local.share_names : share_names => {
         timezone = "UTC"
         backup = {
           frequency = "Daily"
@@ -19,14 +19,6 @@ locals {
             count    = 1
             weekdays = ["Monday"]
             weeks    = ["First"]
-          }
-        }
-        protected_file_shares = {
-          share1 = {
-            id = module.storage.shares.share1.id
-          },
-          share2 = {
-            id = module.storage.shares.share2.id
           }
         }
       }

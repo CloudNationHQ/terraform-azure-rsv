@@ -10,15 +10,8 @@ locals {
     }
   ]...)
 
-  protected_file_share_map = merge([
-    for policy_name, policy in lookup(var.vault, "policies", {}) != {} ? lookup(var.vault.policies, "file_shares", {}) : {} : {
-      for file_share_name, file_share_details in lookup(policy, "protected_file_shares", {}) : "${policy_name}-${file_share_name}" => {
-        resource_group_name       = var.vault.resourcegroup,
-        recovery_vault_name       = var.vault.name,
-        source_storage_account_id = file_share_details.id,
-        source_file_share_name    = file_share_name,
-        backup_policy_id          = try(policy.backup_policy_id, azurerm_backup_policy_file_share.policy[policy_name].id),
-      }
-    }
-  ]...)
+  # protected_file_shares_map 
+  file_share_policy_map = {
+    for share in var.file_shares : share => azurerm_backup_policy_file_share.policy[share].id
+  }
 }

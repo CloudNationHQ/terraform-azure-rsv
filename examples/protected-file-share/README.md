@@ -5,7 +5,26 @@ This example demonstrates associating multiple VMs to a policy.
 Storage  account is created in the below example:
 
 ```hcl
-odule "storage" {
+module "naming" {
+  source  = "cloudnationhq/naming/azure"
+  version = "~> 0.1"
+
+  suffix = ["hello", "devil"]
+}
+
+module "rg" {
+  source  = "cloudnationhq/rg/azure"
+  version = "~> 0.1"
+
+  groups = {
+    demo = {
+      name   = module.naming.resource_group.name
+      region = "westeurope"
+    }
+  }
+}
+
+module "storage" {
   source  = "cloudnationhq/sa/azure"
   version = "~> 0.1"
 
@@ -28,13 +47,13 @@ odule "storage" {
 
       shares = {
         share1 = {
-          quota = 512
+          quota = 5
           metadata = {
             environment = "PRD"
           }
         },
         share2 = {
-          quota = 512
+          quota = 5
           metadata = {
             environment = "PRD"
           }
@@ -51,9 +70,16 @@ In the below example, a policy of type file share is created, it also create a B
 
 ```hcl
 module "rsv" {
-  source  = "cloudnationhq/rsv/azure"
-  version = "~> 0.1"
-  storage_account_id = module.storage.account.id
+  # source = "git::https://github.com/CloudNationHQ/terraform-azure-rsv.git?ref=feat/enable-fileshare-backup"
+  # source = "cloudnationhq/rsv/azure"
+  # version = "~> 0.1"
+  source = "../../"
+
+  naming                   = local.naming
+  storage_account_id       = module.storage.account.id
+  file_shares              = local.share_names
+  enable_file_share_backup = true # If you want to enable file share backup
+
 
   vault = {
     name          = module.naming.recovery_services_vault.name
@@ -64,11 +90,13 @@ module "rsv" {
 }
 ```
 
+Create the policies
+
 ```hcl
 locals {
   policies = {
     file_shares = {
-      pol1 = {
+      for share_names in local.share_names : share_names => {
         timezone = "UTC"
         backup = {
           frequency = "Daily"
@@ -86,14 +114,6 @@ locals {
             count    = 1
             weekdays = ["Monday"]
             weeks    = ["First"]
-          }
-        }
-        protected_file_shares = {
-          share1 = {
-            id = module.storage.shares.share1.id
-          },
-          share2 = {
-            id = module.storage.shares.share2.id
           }
         }
       }

@@ -32,3 +32,15 @@ variable "storage_account_id" {
   type        = string
   default     = null
 }
+
+variable "file_shares" {
+  description = "list of file share names fetched from the storage account"
+  type        = list(string)
+  default     = []
+}
+
+variable "enable_file_share_backup" {
+  description = "enable file share backup"
+  type        = bool
+  default     = false
+}

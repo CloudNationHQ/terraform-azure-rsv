@@ -5,4 +5,6 @@ locals {
   }
 
   naming_types = ["storage_share", "recovery_services_vault_backup_policy"]
+
+  share_names = [for s in module.storage.shares : s.name]
 }
