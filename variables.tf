@@ -26,3 +26,21 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "storage_account_id" {
+  description = "storage account id to be used to manages registration of a storage account with an Azure Recovery Vault"
+  type        = string
+  default     = null
+}
+
+variable "file_shares" {
+  description = "list of file share names fetched from the storage account"
+  type        = list(string)
+  default     = []
+}
+
+variable "enable_file_share_backup" {
+  description = "enable file share backup"
+  type        = bool
+  default     = false
+}
