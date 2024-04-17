@@ -9,9 +9,4 @@ locals {
       }
     }
   ]...)
-
-  # protected_file_shares_map 
-  file_share_policy_map = {
-    for share in var.file_shares : share => azurerm_backup_policy_file_share.policy[share].id
-  }
 }
