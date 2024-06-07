@@ -5,7 +5,7 @@ This example details a recovery services vault setup with a private endpoint, en
 ```hcl
 module "privatelink" {
   source  = "cloudnationhq/pe/azure"
-  version = "~> 0.2"
+  version = "~> 0.3"
 
   resourcegroup = module.rg.groups.demo.name
   location      = module.rg.groups.demo.location

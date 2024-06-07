@@ -5,7 +5,7 @@ This example highlights recovery services vault policies using different types.
 ```hcl
 module "rsv" {
   source  = "cloudnationhq/rsv/azure"
-  version = "~> 0.2"
+  version = "~> 0.3"
 
   naming = local.naming
 
