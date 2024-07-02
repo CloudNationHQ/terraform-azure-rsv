@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v0.3.0...v0.4.0) (2024-07-02)
+
+
+### Features
+
+* add issue template ([#15](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/15)) ([d7d5b53](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/d7d5b531c00797326da3737fb6e7d1ae118fdff9))
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#14](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/14)) ([27ecdf9](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/27ecdf96d39f4292e0468cf3ea25202d951655d0))
+* **deps:** bump github.com/hashicorp/go-getter in /tests ([#13](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/13)) ([b321146](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/b3211465bf0d948032576a2612fc43974a40d164))
+
 ## [0.3.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v0.2.0...v0.3.0) (2024-06-07)
 
 
