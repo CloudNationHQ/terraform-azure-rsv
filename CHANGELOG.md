@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v0.5.0...v0.6.0) (2024-08-28)
+
+
+### Features
+
+* update documentation ([#19](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/19)) ([d38ce4b](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/d38ce4b1c5ba712693103887d9759a1d39b6c44e))
+
 ## [0.5.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v0.4.0...v0.5.0) (2024-08-28)
 
 
