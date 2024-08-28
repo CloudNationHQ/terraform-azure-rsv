@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v0.4.0...v0.5.0) (2024-08-28)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#17](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/17)) ([f2881a1](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/f2881a195fd040a08fb4dea156a5d4e46db6d71e))
+
 ## [0.4.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v0.3.0...v0.4.0) (2024-07-02)
 
 

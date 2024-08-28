@@ -5,7 +5,7 @@ This example illustrates the default recovery services vault setup, in its simpl
 ```hcl
 module "rsv" {
   source  = "cloudnationhq/rsv/azure"
-  version = "~> 0.4"
+  version = "~> 0.5"
 
   vault = {
     name          = module.naming.recovery_services_vault.name
