@@ -1,7 +1,7 @@
 # recovery vault
 resource "azurerm_recovery_services_vault" "vault" {
   name                               = var.vault.name
-  resource_group_name                = coalesce(lookup(var.vault, "resourcegroup", null), var.resourcegroup)
+  resource_group_name                = coalesce(lookup(var.vault, "resource_group", null), var.resource_group)
   location                           = coalesce(lookup(var.vault, "location", null), var.location)
   sku                                = try(var.vault.sku, "Standard")
   soft_delete_enabled                = try(var.vault.soft_delete_enabled, false)
@@ -20,7 +20,7 @@ resource "azurerm_backup_policy_file_share" "policy" {
   )
 
   name                = try(each.value.name, join("-", [var.naming.recovery_services_vault_backup_policy, each.key]))
-  resource_group_name = coalesce(try(var.vault.resourcegroup, null), var.resourcegroup)
+  resource_group_name = coalesce(try(var.vault.resource_group, null), var.resource_group)
   recovery_vault_name = azurerm_recovery_services_vault.vault.name
   timezone            = try(each.value.timezone, "UTC")
 
@@ -77,7 +77,7 @@ resource "azurerm_backup_policy_vm" "policy" {
   )
 
   name                = try(each.value.name, join("-", [var.naming.recovery_services_vault_backup_policy, each.key]))
-  resource_group_name = coalesce(try(var.vault.resourcegroup, null), var.resourcegroup)
+  resource_group_name = coalesce(try(var.vault.resource_group, null), var.resource_group)
   recovery_vault_name = azurerm_recovery_services_vault.vault.name
   timezone            = try(each.value.timezone, "UTC")
   policy_type         = try(each.value.policy_type, "V1")
