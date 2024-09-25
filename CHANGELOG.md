@@ -5,11 +5,19 @@
 
 ### ⚠ BREAKING CHANGES
 
-* * Version 4 of the azurerm provider includes breaking changes.
+* Version 4 of the azurerm provider includes breaking changes.
 
 ### Features
 
 * upgrade azurerm provider to v4 ([#22](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/22)) ([89944bf](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/89944bfe2dbaa27a74ac54d614c10a6c722db0b9))
+
+### Upgrade from v0.6.0 to v1.0.0:
+
+- Update module reference to: `version = "~> 1.0"`
+- Change properties in vault object:
+  - resourcegroup -> resource_group
+- Rename variable:
+  - resourcegroup -> resource_group
 
 ## [0.6.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v0.5.0...v0.6.0) (2024-08-28)
 
