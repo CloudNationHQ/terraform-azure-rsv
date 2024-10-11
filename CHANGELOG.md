@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.0.0...v1.1.0) (2024-10-11)
+
+
+### Features
+
+* auto generated docs and refine makefile ([#25](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/25)) ([cbc998d](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/cbc998dd60faf3b57b765090835587da0099109b))
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#24](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/24)) ([5c06124](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/5c061246220b440820ad5a3bd58ee4c7544b2edc))
+
 ## [1.0.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v0.6.0...v1.0.0) (2024-09-25)
 
 
