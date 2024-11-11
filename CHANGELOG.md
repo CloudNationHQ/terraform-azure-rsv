@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.1.0...v1.2.0) (2024-11-11)
+
+
+### Features
+
+* enhance testing with sequential, parallel modes and flags for exceptions and skip-destroy ([#27](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/27)) ([bb6c120](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/bb6c120bd9b55ab3920fb78d5c8692288e0ef3a3))
+
 ## [1.1.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.0.0...v1.1.0) (2024-10-11)
 
 
