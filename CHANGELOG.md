@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.2.1...v1.3.0) (2024-11-20)
+
+
+### Features
+
+* add file share backup support ([#31](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/31)) ([651b02d](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/651b02d7169d7e01ffdd2eb7680dcdecf0a62020))
+
 ## [1.2.1](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.2.0...v1.2.1) (2024-11-20)
 
 
