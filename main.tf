@@ -141,3 +141,44 @@ resource "azurerm_backup_protected_vm" "vm" {
   source_vm_id        = each.value.source_vm_id
   backup_policy_id    = azurerm_backup_policy_vm.policy[each.value.policy_name].id
 }
+
+# register the storage account as a backup container
+resource "azurerm_backup_container_storage_account" "container" {
+  for_each = {
+    for policy_name, policy in lookup(var.vault, "policies", {}) != {} ? lookup(var.vault.policies, "file_shares", {}) : {} :
+    policy_name => {
+      storage_account_id  = values(policy.protected_shares)[0].storage_account_id
+      recovery_vault_name = azurerm_recovery_services_vault.vault.name
+      resource_group_name = coalesce(try(var.vault.resource_group, null), var.resource_group)
+    }
+  }
+
+  storage_account_id  = each.value.storage_account_id
+  recovery_vault_name = each.value.recovery_vault_name
+  resource_group_name = each.value.resource_group_name
+}
+
+# file share protection
+resource "azurerm_backup_protected_file_share" "share" {
+  for_each = merge([
+    for policy_name, policy in lookup(var.vault, "policies", {}) != {} ? lookup(var.vault.policies, "file_shares", {}) : {} : {
+      for share_name, share_details in lookup(policy, "protected_shares", {}) : "${policy_name}-${share_name}" => {
+        recovery_vault_name       = azurerm_recovery_services_vault.vault.name
+        source_storage_account_id = share_details.storage_account_id
+        source_file_share_name    = share_details.name
+        policy_name               = policy_name
+        resource_group_name = coalesce(
+          try(var.vault.resource_group, null), var.resource_group
+        )
+      }
+    }
+  ]...)
+
+  resource_group_name       = each.value.resource_group_name
+  recovery_vault_name       = each.value.recovery_vault_name
+  source_storage_account_id = each.value.source_storage_account_id
+  source_file_share_name    = each.value.source_file_share_name
+  backup_policy_id          = azurerm_backup_policy_file_share.policy[each.value.policy_name].id
+
+  depends_on = [azurerm_backup_container_storage_account.container]
+}
