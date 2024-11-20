@@ -123,7 +123,18 @@ resource "azurerm_backup_policy_vm" "policy" {
 }
 
 resource "azurerm_backup_protected_vm" "vm" {
-  for_each = local.protected_vms_map
+  for_each = merge([
+    for policy_name, policy in lookup(var.vault, "policies", {}) != {} ? lookup(var.vault.policies, "vms", {}) : {} : {
+      for vm_name, vm_details in lookup(policy, "protected_vms", {}) : "${policy_name}-${vm_name}" => {
+        recovery_vault_name = azurerm_recovery_services_vault.vault.name
+        source_vm_id        = vm_details.id
+        policy_name         = policy_name
+        resource_group_name = coalesce(
+          try(var.vault.resource_group, null), var.resource_group
+        )
+      }
+    }
+  ]...)
 
   resource_group_name = each.value.resource_group_name
   recovery_vault_name = each.value.recovery_vault_name
