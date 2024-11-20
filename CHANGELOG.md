@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.2.0...v1.2.1) (2024-11-20)
+
+
+### Bug Fixes
+
+* bounce all modules to latest version in usages and fixed policy reference for protected VMs ([#29](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/29)) ([5cea5d3](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/5cea5d32e9999a4b17de04e873228941abfdf65b))
+
 ## [1.2.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.1.0...v1.2.0) (2024-11-11)
 
 
