@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.3.0...v1.4.0) (2024-12-06)
+
+
+### Features
+
+* add type definitions all usages ([#34](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/34)) ([007158c](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/007158ce39c410bf00ce7c0419e14d571cea14f3))
+
 ## [1.3.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.2.1...v1.3.0) (2024-11-20)
 
 
