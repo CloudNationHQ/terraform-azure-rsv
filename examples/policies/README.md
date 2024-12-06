@@ -1,78 +1,43 @@
-This example highlights recovery services vault policies using different types.
+# Policies
 
-## Usage: vm
+This deploys policies using different types
 
-```hcl
-module "rsv" {
-  source  = "cloudnationhq/rsv/azure"
-  version = "~> 0.5"
-
-  naming = local.naming
-
-  vault = {
-    name          = module.naming.recovery_services_vault.name
-    location      = module.rg.groups.demo.location
-    resourcegroup = module.rg.groups.demo.name
-
-    policies = {
-      vms = {
-        pol1 = {
-          timezone = "UTC"
-          backup = {
-            frequency = "Daily"
-            time      = "23:00"
-          }
-          retention = {
-            daily = {
-              count = 7
-            }
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-## Usage: file shares
+## Types
 
 ```hcl
-module "rsv" {
-  source  = "cloudnationhq/rsv/azure"
-  version = "~> 0.1"
-
-  naming = local.naming
-
-  vault = {
-    name          = module.naming.recovery_services_vault.name
-    location      = module.rg.groups.demo.location
-    resourcegroup = module.rg.groups.demo.name
-
-    policies = {
-      file_shares = {
-        pol1 = {
-          timezone = "UTC"
-          backup = {
-            frequency = "Daily"
-            time      = "23:00"
-          }
-          retention = {
-            daily = {
-              count = 3
-            }
-            weekly = {
-              count    = 2
-              weekdays = ["Monday", "Tuesday"]
-            }
-            monthly = {
-              count    = 1
-              weekdays = ["Monday"]
-              weeks    = ["First"]
-            }
-          }
-        }
-      }
-    }
-  }
-}
+vault = object({
+  name           = string
+  location       = string
+  resource_group = string
+  policies = optional(object({
+    file_shares = optional(map(object({
+      name     = optional(string)
+      timezone = optional(string)
+      backup = object({
+        frequency = string
+        time      = string
+      })
+      retention = object({
+        daily = object({
+          count = number
+        })
+        weekly = optional(object({
+          count    = number
+          weekdays = list(string)
+        }))
+        monthly = optional(object({
+          count    = number
+          weekdays = list(string)
+          weeks    = list(string)
+        }))
+        yearly = optional(object({
+          count    = number
+          weekdays = list(string)
+          weeks    = list(string)
+          months   = list(string)
+        }))
+      })
+    })))
+  }))
+})
 ```
