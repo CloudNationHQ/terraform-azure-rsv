@@ -147,10 +147,11 @@ resource "azurerm_backup_container_storage_account" "container" {
   for_each = {
     for policy_name, policy in lookup(var.vault, "policies", {}) != {} ? lookup(var.vault.policies, "file_shares", {}) : {} :
     policy_name => {
-      storage_account_id  = values(policy.protected_shares)[0].storage_account_id
+      storage_account_id  = lookup(policy, "protected_shares", null) != null ? values(policy.protected_shares)[0].storage_account_id : null
       recovery_vault_name = azurerm_recovery_services_vault.vault.name
       resource_group_name = coalesce(try(var.vault.resource_group, null), var.resource_group)
     }
+    if lookup(policy, "protected_shares", null) != null
   }
 
   storage_account_id  = each.value.storage_account_id
