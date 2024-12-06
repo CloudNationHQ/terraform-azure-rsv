@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.4.0...v1.4.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* skip backup container creation when no shares defined ([#36](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/36)) ([1c1e167](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/1c1e167c8b54c51640bc879013038603f8354fdf))
+
 ## [1.4.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.3.0...v1.4.0) (2024-12-06)
 
 
