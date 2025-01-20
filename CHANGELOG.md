@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.4.1...v1.5.0) (2025-01-20)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#39](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/39)) ([e352915](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/e3529158359ae66dc030d9302249b83f8d09abef))
+* **deps:** bump golang.org/x/crypto from 0.29.0 to 0.31.0 in /tests ([#42](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/42)) ([9b68847](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/9b688471fa490e0824d3104a109c4249af6ed4f7))
+* **deps:** bump golang.org/x/net from 0.31.0 to 0.33.0 in /tests ([#43](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/43)) ([979f04c](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/979f04ccb63a56d1f3c5185dd879ca483560bb3e))
+* remove temporary files when deployment tests fails ([#40](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/40)) ([ab88644](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/ab88644c78a6e768cdf683431f32797288f23b98))
+
 ## [1.4.1](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.4.0...v1.4.1) (2024-12-06)
 
 
