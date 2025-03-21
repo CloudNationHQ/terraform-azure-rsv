@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.5.0...v1.6.0) (2025-03-21)
+
+
+### Features
+
+* enhance backup policies with dynamic configurations and additional parameters ([#47](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/47)) ([ffcf402](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/ffcf40292b4ab53f8411f5fd41b63612d70549e1))
+
 ## [1.5.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.4.1...v1.5.0) (2025-01-20)
 
 
