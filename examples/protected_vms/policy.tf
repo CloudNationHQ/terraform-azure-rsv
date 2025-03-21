@@ -14,10 +14,10 @@ locals {
         }
         protected_vms = {
           dcroot001 = {
-            id = module.vm.dcroot001.instance.id
+            id = module.vm["dcroot001"].instance.id
           }
           dcroot002 = {
-            id = module.vm.dcroot002.instance.id
+            id = module.vm["dcroot002"].instance.id
           }
         }
       }
