@@ -1,3 +1,4 @@
 output "vault" {
-  value = azurerm_recovery_services_vault.vault
+  description = "Contains all recovery services vault configuration"
+  value       = azurerm_recovery_services_vault.vault
 }

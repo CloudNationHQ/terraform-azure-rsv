@@ -1,41 +1,54 @@
 # recovery vault
 resource "azurerm_recovery_services_vault" "vault" {
+  resource_group_name = coalesce(
+    lookup(
+      var.vault, "resource_group_name", null
+    ), var.resource_group_name
+  )
+
+  location = coalesce(
+    lookup(var.vault, "location", null
+    ), var.location
+  )
+
   name                               = var.vault.name
-  resource_group_name                = coalesce(lookup(var.vault, "resource_group", null), var.resource_group)
-  location                           = coalesce(lookup(var.vault, "location", null), var.location)
-  sku                                = try(var.vault.sku, "Standard")
-  soft_delete_enabled                = try(var.vault.soft_delete_enabled, false)
-  immutability                       = try(var.vault.immutability, "Disabled")
-  cross_region_restore_enabled       = try(var.vault.cross_region_restore_enabled, null)
-  storage_mode_type                  = try(var.vault.storage_mode_type, "GeoRedundant")
-  public_network_access_enabled      = try(var.vault.public_network_access_enabled, true)
-  classic_vmware_replication_enabled = try(var.vault.classic_vmware_replication_enabled, null)
-  tags                               = try(var.vault.tags, var.tags, null)
+  sku                                = var.vault.sku
+  soft_delete_enabled                = var.vault.soft_delete_enabled
+  immutability                       = var.vault.immutability
+  cross_region_restore_enabled       = var.vault.cross_region_restore_enabled
+  storage_mode_type                  = var.vault.storage_mode_type
+  public_network_access_enabled      = var.vault.public_network_access_enabled
+  classic_vmware_replication_enabled = var.vault.classic_vmware_replication_enabled
+
+  tags = coalesce(
+    var.vault.tags, var.tags
+  )
 
   dynamic "identity" {
     for_each = try(lookup(var.vault, "identity", null) != null ? [var.vault.identity] : [])
     content {
       type         = var.vault.identity.type
-      identity_ids = try(var.vault.identity.identity_ids, [])
+      identity_ids = var.vault.identity.identity_ids
     }
-
   }
 
   dynamic "encryption" {
     for_each = try(lookup(var.vault, "encryption", null) != null ? [var.vault.encryption] : [])
+
     content {
       key_id                            = var.vault.encryption.key_id
       infrastructure_encryption_enabled = var.vault.encryption.infrastructure_encryption_enabled
-      user_assigned_identity_id         = try(var.vault.encryption.user_assigned_identity_id, null)
-      use_system_assigned_identity      = try(var.vault.encryption.use_system_assigned_identity, true)
+      user_assigned_identity_id         = var.vault.encryption.user_assigned_identity_id
+      use_system_assigned_identity      = var.vault.encryption.use_system_assigned_identity
     }
   }
 
   dynamic "monitoring" {
     for_each = try(lookup(var.vault, "monitoring", null) != null ? [var.vault.monitoring] : [])
+
     content {
-      alerts_for_all_job_failures_enabled            = try(var.vault.monitoring.alerts_for_all_job_failures_enabled, true)
-      alerts_for_critical_operation_failures_enabled = try(var.vault.monitoring.alerts_for_critical_operation_failures_enabled, true)
+      alerts_for_all_job_failures_enabled            = var.vault.monitoring.alerts_for_all_job_failures_enabled
+      alerts_for_critical_operation_failures_enabled = var.vault.monitoring.alerts_for_critical_operation_failures_enabled
     }
 
   }
@@ -47,14 +60,23 @@ resource "azurerm_backup_policy_file_share" "policy" {
     lookup(var.vault, "policies", {}), "file_shares", {}
   )
 
-  name                = try(each.value.name, join("-", [var.naming.recovery_services_vault_backup_policy, each.key]))
-  resource_group_name = coalesce(try(var.vault.resource_group, null), var.resource_group)
+  name = coalesce(
+    each.value.name, join("-", [var.naming.recovery_services_vault_backup_policy, each.key])
+  )
+
+  resource_group_name = coalesce(
+    lookup(
+      var.vault, "resource_group_name", null
+    ), var.resource_group_name
+  )
+
+
   recovery_vault_name = azurerm_recovery_services_vault.vault.name
-  timezone            = try(each.value.timezone, "UTC")
+  timezone            = each.value.timezone
 
   backup {
     frequency = each.value.backup.frequency
-    time      = try(each.value.backup.time, null)
+    time      = each.value.backup.time
 
     dynamic "hourly" {
       for_each = try(
@@ -79,8 +101,8 @@ resource "azurerm_backup_policy_file_share" "policy" {
     )
 
     content {
-      count    = try(retention_weekly.value.count, null)
-      weekdays = try(retention_weekly.value.weekdays, [])
+      count    = retention_weekly.value.count
+      weekdays = retention_weekly.value.weekdays
     }
   }
 
@@ -90,11 +112,11 @@ resource "azurerm_backup_policy_file_share" "policy" {
     )
 
     content {
-      count             = try(retention_monthly.value.count, null)
-      weekdays          = try(retention_monthly.value.weekdays, [])
-      weeks             = try(retention_monthly.value.weeks, [])
-      days              = try(retention_monthly.value.days, [])
-      include_last_days = try(retention_monthly.value.include_last_days, false)
+      count             = retention_monthly.value.count
+      weekdays          = retention_monthly.value.weekdays
+      weeks             = retention_monthly.value.weeks
+      days              = retention_monthly.value.days
+      include_last_days = retention_monthly.value.include_last_days
     }
   }
 
@@ -104,12 +126,12 @@ resource "azurerm_backup_policy_file_share" "policy" {
     )
 
     content {
-      count             = try(retention_yearly.value.count, null)
-      weekdays          = try(retention_yearly.value.weekdays, [])
-      weeks             = try(retention_yearly.value.weeks, [])
-      months            = try(retention_yearly.value.months, [])
-      days              = try(retention_yearly.value.days, [])
-      include_last_days = try(retention_yearly.value.include_last_days, false)
+      count             = retention_yearly.value.count
+      weekdays          = retention_yearly.value.weekdays
+      weeks             = retention_yearly.value.weeks
+      months            = retention_yearly.value.months
+      days              = retention_yearly.value.days
+      include_last_days = retention_yearly.value.include_last_days
     }
   }
 }
@@ -120,12 +142,20 @@ resource "azurerm_backup_policy_vm" "policy" {
     lookup(var.vault, "policies", {}), "vms", {}
   )
 
-  name                           = try(each.value.name, join("-", [var.naming.recovery_services_vault_backup_policy, each.key]))
-  resource_group_name            = coalesce(try(var.vault.resource_group, null), var.resource_group)
+  name = coalesce(
+    each.value.name, join("-", [var.naming.recovery_services_vault_backup_policy, each.key])
+  )
+
+  resource_group_name = coalesce(
+    lookup(
+      var.vault, "resource_group_name", null
+    ), var.resource_group_name
+  )
+
   recovery_vault_name            = azurerm_recovery_services_vault.vault.name
-  timezone                       = try(each.value.timezone, "UTC")
-  policy_type                    = try(each.value.policy_type, "V1")
-  instant_restore_retention_days = try(each.value.instant_restore_retention_days, null)
+  timezone                       = each.value.timezone
+  policy_type                    = each.value.policy_type
+  instant_restore_retention_days = each.value.instant_restore_retention_days
 
   dynamic "instant_restore_resource_group" {
     for_each = try(
@@ -134,7 +164,7 @@ resource "azurerm_backup_policy_vm" "policy" {
 
     content {
       prefix = instant_restore_resource_group.value.prefix
-      suffix = try(instant_restore_resource_group.value.suffix, null)
+      suffix = instant_restore_resource_group.value.suffix
     }
 
   }
@@ -152,8 +182,8 @@ resource "azurerm_backup_policy_vm" "policy" {
 
         content {
           mode          = archived_restore_point.value.mode
-          duration      = try(archived_restore_point.value.duration, null)
-          duration_type = try(archived_restore_point.value.duration_type, null)
+          duration      = archived_restore_point.value.duration
+          duration_type = archived_restore_point.value.duration_type
         }
       }
     }
@@ -162,9 +192,9 @@ resource "azurerm_backup_policy_vm" "policy" {
   backup {
     frequency     = each.value.backup.frequency
     time          = each.value.backup.time
-    hour_interval = try(each.value.backup.hour_interval, null)
-    hour_duration = try(each.value.backup.hour_duration, null)
-    weekdays      = try(each.value.backup.weekdays, null)
+    hour_interval = each.value.backup.hour_interval
+    hour_duration = each.value.backup.hour_duration
+    weekdays      = each.value.backup.weekdays
   }
 
   dynamic "retention_daily" {
@@ -183,8 +213,8 @@ resource "azurerm_backup_policy_vm" "policy" {
     )
 
     content {
-      count    = try(retention_weekly.value.count, null)
-      weekdays = try(retention_weekly.value.weekdays, null)
+      count    = retention_weekly.value.count
+      weekdays = retention_weekly.value.weekdays
     }
   }
 
@@ -194,11 +224,11 @@ resource "azurerm_backup_policy_vm" "policy" {
     )
 
     content {
-      count             = try(retention_monthly.value.count, null)
-      weekdays          = try(retention_monthly.value.weekdays, [])
-      weeks             = try(retention_monthly.value.weeks, [])
-      days              = try(retention_monthly.value.days, [])
-      include_last_days = try(retention_monthly.value.include_last_days, false)
+      count             = retention_monthly.value.count
+      weekdays          = retention_monthly.value.weekdays
+      weeks             = retention_monthly.value.weeks
+      days              = retention_monthly.value.days
+      include_last_days = retention_monthly.value.include_last_days
     }
   }
 
@@ -208,12 +238,12 @@ resource "azurerm_backup_policy_vm" "policy" {
     )
 
     content {
-      count             = try(retention_yearly.value.count, null)
-      weekdays          = try(retention_yearly.value.weekdays, [])
-      weeks             = try(retention_yearly.value.weeks, [])
-      months            = try(retention_yearly.value.months, [])
-      days              = try(retention_yearly.value.days, [])
-      include_last_days = try(retention_yearly.value.include_last_days, false)
+      count             = retention_yearly.value.count
+      weekdays          = retention_yearly.value.weekdays
+      weeks             = retention_yearly.value.weeks
+      months            = retention_yearly.value.months
+      days              = retention_yearly.value.days
+      include_last_days = retention_yearly.value.include_last_days
     }
   }
 }
@@ -225,11 +255,13 @@ resource "azurerm_backup_protected_vm" "vm" {
         recovery_vault_name = azurerm_recovery_services_vault.vault.name
         source_vm_id        = vm_details.id
         policy_name         = policy_name
-        include_disk_luns   = try(vm_details.include_disk_luns, null)
-        exclude_disk_luns   = try(vm_details.exclude_disk_luns, null)
-        protection_state    = try(vm_details.protection_state, null)
+        include_disk_luns   = vm_details.include_disk_luns
+        exclude_disk_luns   = vm_details.exclude_disk_luns
+        protection_state    = vm_details.protection_state
         resource_group_name = coalesce(
-          try(var.vault.resource_group, null), var.resource_group
+          lookup(
+            var.vault, "resource_group_name", null
+          ), var.resource_group_name
         )
       }
     }
@@ -249,11 +281,15 @@ resource "azurerm_backup_container_storage_account" "container" {
   for_each = {
     for policy_name, policy in lookup(var.vault, "policies", {}) != {} ? lookup(var.vault.policies, "file_shares", {}) : {} :
     policy_name => {
-      storage_account_id  = lookup(policy, "protected_shares", null) != null ? values(policy.protected_shares)[0].storage_account_id : null
+      storage_account_id  = lookup(policy, "protected_shares", null) != null && length(values(policy.protected_shares)) > 0 ? values(policy.protected_shares)[0].storage_account_id : null
       recovery_vault_name = azurerm_recovery_services_vault.vault.name
-      resource_group_name = coalesce(try(var.vault.resource_group, null), var.resource_group)
+      resource_group_name = coalesce(
+        lookup(
+          var.vault, "resource_group_name", null
+        ), var.resource_group_name
+      )
     }
-    if lookup(policy, "protected_shares", null) != null
+    if lookup(policy, "protected_shares", null) != null && length(values(lookup(policy, "protected_shares", {}))) > 0
   }
 
   storage_account_id  = each.value.storage_account_id
@@ -271,7 +307,9 @@ resource "azurerm_backup_protected_file_share" "share" {
         source_file_share_name    = share_details.name
         policy_name               = policy_name
         resource_group_name = coalesce(
-          try(var.vault.resource_group, null), var.resource_group
+          lookup(
+            var.vault, "resource_group_name", null
+          ), var.resource_group_name
         )
       }
     }
