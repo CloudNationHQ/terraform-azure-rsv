@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.6.0...v2.0.0) (2025-05-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* The data structure changed, causing a recreate on existing resources.
+
+### Features
+
+* small refactor ([#51](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/51)) ([03847c8](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/03847c8f2d0990747333f5dbe87023913ab12827))
+
 ## [1.6.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.5.0...v1.6.0) (2025-03-21)
 
 
