@@ -12,19 +12,16 @@ TEST_ARGS := $(if $(skip-destroy),-skip-destroy=$(skip-destroy)) \
 test:
 	cd tests && go test -v -timeout 60m -run '^TestApplyNoError$$' -args $(TEST_ARGS) .
 
-test-sequential:
-	cd tests && go test -v -timeout 120m -run '^TestApplyAllSequential$$' -args $(TEST_ARGS) .
-
 test-parallel:
 	cd tests && go test -v -timeout 60m -run '^TestApplyAllParallel$$' -args $(TEST_ARGS) .
 
 docs:
 	@echo "Generating documentation for root and modules..."
-	terraform-docs markdown . --output-file README.md --output-mode inject --hide modules
+	terraform-docs markdown document . --output-file README.md --output-mode inject --hide modules
 	for dir in modules/*; do \
 		if [ -d "$$dir" ]; then \
 			echo "Processing $$dir..."; \
-			terraform-docs markdown "$$dir" --output-file "$$dir/README.md" --output-mode inject --hide modules || echo "Skipped: $$dir"; \
+			(cd "$$dir" && terraform-docs markdown document . --output-file README.md --output-mode inject --hide modules) || echo "Skipped: $$dir"; \
 		fi \
 	done
 

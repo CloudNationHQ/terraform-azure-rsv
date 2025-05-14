@@ -1,6 +1,6 @@
 module "naming" {
   source  = "cloudnationhq/naming/azure"
-  version = "~> 0.22"
+  version = "~> 0.24"
 
   suffix = ["demo", "dev"]
 }
@@ -19,14 +19,14 @@ module "rg" {
 
 module "rsv" {
   source  = "cloudnationhq/rsv/azure"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   naming = local.naming
 
   vault = {
-    name           = module.naming.recovery_services_vault.name
-    location       = module.rg.groups.demo.location
-    resource_group = module.rg.groups.demo.name
+    name                = module.naming.recovery_services_vault.name
+    location            = module.rg.groups.demo.location
+    resource_group_name = module.rg.groups.demo.name
 
     policies = {
       file_shares = {
