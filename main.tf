@@ -61,7 +61,9 @@ resource "azurerm_backup_policy_file_share" "policy" {
   )
 
   name = coalesce(
-    each.value.name, join("-", [var.naming.recovery_services_vault_backup_policy, each.key])
+    each.value.name, try(
+      join("-", [var.naming.recovery_services_vault_backup_policy, each.key]), null
+    ), each.key
   )
 
   resource_group_name = coalesce(
@@ -143,7 +145,9 @@ resource "azurerm_backup_policy_vm" "policy" {
   )
 
   name = coalesce(
-    each.value.name, join("-", [var.naming.recovery_services_vault_backup_policy, each.key])
+    each.value.name, try(
+      join("-", [var.naming.recovery_services_vault_backup_policy, each.key]), null
+    ), each.key
   )
 
   resource_group_name = coalesce(
