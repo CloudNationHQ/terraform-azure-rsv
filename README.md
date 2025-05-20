@@ -12,6 +12,8 @@ Integrates seamlessly with private endpoint capabilities for direct and secure c
 
 Simplifies item policy association
 
+Offers three-tier naming hierarchy (explicit, convention-based, or key-based) for flexible resource management.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
