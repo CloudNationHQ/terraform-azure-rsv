@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.0.0...v2.1.0) (2025-05-20)
+
+
+### Features
+
+* implement flexible resource naming ([#53](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/53)) ([57bd89f](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/57bd89ffc49f9da3219dcf6ae12b94818f3bbe3e))
+
 ## [2.0.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v1.6.0...v2.0.0) (2025-05-14)
 
 
