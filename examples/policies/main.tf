@@ -49,6 +49,12 @@ module "rsv" {
               weekdays = ["Monday"]
               weeks    = ["First"]
             }
+            yearly = {
+              count    = 1
+              weekdays = ["Monday"]
+              weeks    = ["First"]
+              months   = ["January"]
+            }
           }
         }
       }

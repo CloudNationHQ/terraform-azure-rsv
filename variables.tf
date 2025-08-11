@@ -45,7 +45,7 @@ variable "vault" {
           })
           weekly = optional(object({
             count    = optional(number, null)
-            weekdays = optional(list(string), [])
+            weekdays = optional(list(string), null)
           }), null)
           monthly = optional(object({
             count             = optional(number, null)
@@ -56,11 +56,11 @@ variable "vault" {
           }), null)
           yearly = optional(object({
             count             = optional(number, null)
-            weekdays          = optional(list(string), [])
-            weeks             = optional(list(string), [])
-            months            = optional(list(string), [])
+            weekdays          = optional(list(string), null)
+            weeks             = optional(list(string), null)
+            months            = optional(list(string), null)
             days              = optional(list(number), null)
-            include_last_days = optional(bool, false)
+            include_last_days = optional(bool, null)
           }), null)
         })
         protected_shares = optional(map(object({
@@ -101,18 +101,18 @@ variable "vault" {
           }), null)
           monthly = optional(object({
             count             = optional(number, null)
-            weekdays          = optional(list(string), [])
-            weeks             = optional(list(string), [])
-            days              = optional(list(string), [])
-            include_last_days = optional(bool, false)
+            weekdays          = optional(list(string), null)
+            weeks             = optional(list(string), null)
+            days              = optional(list(number), null)
+            include_last_days = optional(bool, null)
           }), null)
           yearly = optional(object({
             count             = optional(number, null)
-            weekdays          = optional(list(string), [])
-            weeks             = optional(list(string), [])
-            months            = optional(list(string), [])
-            days              = optional(list(string), [])
-            include_last_days = optional(bool, false)
+            weekdays          = optional(list(string), null)
+            weeks             = optional(list(string), null)
+            months            = optional(list(string), null)
+            days              = optional(list(number), null)
+            include_last_days = optional(bool, null)
           }), null)
         })
         protected_vms = optional(map(object({
