@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.1.0...v2.1.1) (2025-08-11)
+
+
+### Bug Fixes
+
+* retention type definitions ([#55](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/55)) ([ce9a529](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/ce9a529d79be965418a282b0ede71dca250d04e6))
+
 ## [2.1.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.0.0...v2.1.0) (2025-05-20)
 
 
