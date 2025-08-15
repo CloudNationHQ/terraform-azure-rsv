@@ -53,24 +53,24 @@ Type:
 ```hcl
 object({
     name                               = string
-    resource_group_name                = optional(string, null)
-    location                           = optional(string, null)
+    resource_group_name                = optional(string)
+    location                           = optional(string)
     sku                                = optional(string, "Standard")
     soft_delete_enabled                = optional(bool, false)
     immutability                       = optional(string, "Disabled")
-    cross_region_restore_enabled       = optional(bool, null)
+    cross_region_restore_enabled       = optional(bool, false)
     storage_mode_type                  = optional(string, "GeoRedundant")
     public_network_access_enabled      = optional(bool, true)
-    classic_vmware_replication_enabled = optional(bool, null)
+    classic_vmware_replication_enabled = optional(bool, false)
     tags                               = optional(map(string))
     identity = optional(object({
       type         = string
-      identity_ids = optional(list(string), [])
+      identity_ids = optional(set(string), [])
     }), null)
     encryption = optional(object({
       key_id                            = string
       infrastructure_encryption_enabled = bool
-      user_assigned_identity_id         = optional(string, null)
+      user_assigned_identity_id         = optional(string)
       use_system_assigned_identity      = optional(bool, true)
     }), null)
     monitoring = optional(object({
@@ -79,11 +79,11 @@ object({
     }), null)
     policies = optional(object({
       file_shares = optional(map(object({
-        name     = optional(string, null)
+        name     = optional(string)
         timezone = optional(string, "UTC")
         backup = object({
           frequency = string
-          time      = optional(string, null)
+          time      = optional(string)
           hourly = optional(object({
             interval        = number
             start_time      = string
@@ -95,22 +95,22 @@ object({
             count = number
           })
           weekly = optional(object({
-            count    = optional(number, null)
-            weekdays = optional(list(string), [])
+            count    = optional(number)
+            weekdays = optional(set(string), [])
           }), null)
           monthly = optional(object({
-            count             = optional(number, null)
-            weekdays          = optional(list(string), null)
-            weeks             = optional(list(string), null)
-            days              = optional(list(number), null)
-            include_last_days = optional(bool, null)
+            count             = optional(number)
+            weekdays          = optional(set(string))
+            weeks             = optional(set(string))
+            days              = optional(set(number))
+            include_last_days = optional(bool, false)
           }), null)
           yearly = optional(object({
-            count             = optional(number, null)
-            weekdays          = optional(list(string), [])
-            weeks             = optional(list(string), [])
-            months            = optional(list(string), [])
-            days              = optional(list(number), null)
+            count             = optional(number)
+            weekdays          = optional(set(string), [])
+            weeks             = optional(set(string), [])
+            months            = optional(set(string), [])
+            days              = optional(set(number))
             include_last_days = optional(bool, false)
           }), null)
         })
@@ -120,57 +120,57 @@ object({
         })), {})
       })), {})
       vms = optional(map(object({
-        name                           = optional(string, null)
+        name                           = optional(string)
         timezone                       = optional(string, "UTC")
         policy_type                    = optional(string, "V1")
-        instant_restore_retention_days = optional(number, null)
+        instant_restore_retention_days = optional(number)
         instant_restore_resource_group = optional(object({
           prefix = string
-          suffix = optional(string, null)
+          suffix = optional(string)
         }), null)
         tiering_policy = optional(object({
           archived_restore_point = optional(object({
             mode          = string
-            duration      = optional(number, null)
-            duration_type = optional(string, null)
+            duration      = optional(number)
+            duration_type = optional(string)
           }), null)
         }), null)
         backup = object({
           frequency     = string
           time          = string
-          hour_interval = optional(number, null)
-          hour_duration = optional(number, null)
-          weekdays      = optional(list(string), null)
+          hour_interval = optional(number)
+          hour_duration = optional(number)
+          weekdays      = optional(set(string))
         })
         retention = object({
           daily = optional(object({
-            count = optional(number, null)
+            count = optional(number)
           }), null)
           weekly = optional(object({
-            count    = optional(number, null)
-            weekdays = optional(list(string), null)
+            count    = optional(number)
+            weekdays = optional(set(string))
           }), null)
           monthly = optional(object({
-            count             = optional(number, null)
-            weekdays          = optional(list(string), [])
-            weeks             = optional(list(string), [])
-            days              = optional(list(string), [])
+            count             = optional(number)
+            weekdays          = optional(set(string), [])
+            weeks             = optional(set(string), [])
+            days              = optional(list(number), [])
             include_last_days = optional(bool, false)
           }), null)
           yearly = optional(object({
-            count             = optional(number, null)
-            weekdays          = optional(list(string), [])
-            weeks             = optional(list(string), [])
-            months            = optional(list(string), [])
-            days              = optional(list(string), [])
+            count             = optional(number)
+            weekdays          = optional(set(string), [])
+            weeks             = optional(set(string), [])
+            months            = optional(set(string), [])
+            days              = optional(list(number), [])
             include_last_days = optional(bool, false)
           }), null)
         })
         protected_vms = optional(map(object({
           id                = string
-          include_disk_luns = optional(list(number), null)
-          exclude_disk_luns = optional(list(number), null)
-          protection_state  = optional(string, null)
+          include_disk_luns = optional(list(number))
+          exclude_disk_luns = optional(list(number))
+          protection_state  = optional(string)
         })), {})
       })), {})
     }), {})
