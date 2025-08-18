@@ -50,7 +50,6 @@ resource "azurerm_recovery_services_vault" "vault" {
       alerts_for_all_job_failures_enabled            = var.vault.monitoring.alerts_for_all_job_failures_enabled
       alerts_for_critical_operation_failures_enabled = var.vault.monitoring.alerts_for_critical_operation_failures_enabled
     }
-
   }
 }
 
@@ -114,11 +113,12 @@ resource "azurerm_backup_policy_file_share" "policy" {
     )
 
     content {
-      count             = retention_monthly.value.count
-      weekdays          = retention_monthly.value.weekdays
-      weeks             = retention_monthly.value.weeks
-      days              = retention_monthly.value.days
-      include_last_days = retention_monthly.value.include_last_days
+      count    = retention_monthly.value.count
+      weekdays = retention_monthly.value.include_last_days == true ? null : retention_monthly.value.weekdays
+      weeks    = retention_monthly.value.include_last_days == true ? null : retention_monthly.value.weeks
+      days     = retention_monthly.value.days
+      # provider doesn't allow include_last_days with weekdays/weeks - omit when using weekdays/weeks
+      include_last_days = (retention_monthly.value.weekdays != null || retention_monthly.value.weeks != null) ? null : retention_monthly.value.include_last_days
     }
   }
 
@@ -128,12 +128,13 @@ resource "azurerm_backup_policy_file_share" "policy" {
     )
 
     content {
-      count             = retention_yearly.value.count
-      weekdays          = retention_yearly.value.weekdays
-      weeks             = retention_yearly.value.weeks
-      months            = retention_yearly.value.months
-      days              = retention_yearly.value.days
-      include_last_days = retention_yearly.value.include_last_days
+      count    = retention_yearly.value.count
+      weekdays = retention_yearly.value.include_last_days == true ? null : retention_yearly.value.weekdays
+      weeks    = retention_yearly.value.include_last_days == true ? null : retention_yearly.value.weeks
+      months   = retention_yearly.value.months
+      days     = retention_yearly.value.days
+      # provider doesn't allow include_last_days with weekdays/weeks - omit when using weekdays/weeks
+      include_last_days = (retention_yearly.value.weekdays != null || retention_yearly.value.weeks != null) ? null : retention_yearly.value.include_last_days
     }
   }
 }
@@ -228,11 +229,12 @@ resource "azurerm_backup_policy_vm" "policy" {
     )
 
     content {
-      count             = retention_monthly.value.count
-      weekdays          = retention_monthly.value.weekdays
-      weeks             = retention_monthly.value.weeks
-      days              = retention_monthly.value.days
-      include_last_days = retention_monthly.value.include_last_days
+      count    = retention_monthly.value.count
+      weekdays = retention_monthly.value.include_last_days == true ? null : retention_monthly.value.weekdays
+      weeks    = retention_monthly.value.include_last_days == true ? null : retention_monthly.value.weeks
+      days     = retention_monthly.value.days
+      # provider doesn't allow include_last_days with weekdays/weeks - omit when using weekdays/weeks
+      include_last_days = (retention_monthly.value.weekdays != null || retention_monthly.value.weeks != null) ? null : retention_monthly.value.include_last_days
     }
   }
 
@@ -242,12 +244,13 @@ resource "azurerm_backup_policy_vm" "policy" {
     )
 
     content {
-      count             = retention_yearly.value.count
-      weekdays          = retention_yearly.value.weekdays
-      weeks             = retention_yearly.value.weeks
-      months            = retention_yearly.value.months
-      days              = retention_yearly.value.days
-      include_last_days = retention_yearly.value.include_last_days
+      count    = retention_yearly.value.count
+      weekdays = retention_yearly.value.include_last_days == true ? null : retention_yearly.value.weekdays
+      weeks    = retention_yearly.value.include_last_days == true ? null : retention_yearly.value.weeks
+      months   = retention_yearly.value.months
+      days     = retention_yearly.value.days
+      # provider doesn't allow include_last_days with weekdays/weeks - omit when using weekdays/weeks
+      include_last_days = (retention_yearly.value.weekdays != null || retention_yearly.value.weeks != null) ? null : retention_yearly.value.include_last_days
     }
   }
 }
