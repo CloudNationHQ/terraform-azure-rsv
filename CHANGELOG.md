@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.2.0...v2.2.1) (2025-08-18)
+
+
+### Bug Fixes
+
+* correct type definitions to match provider schema and resolve retention policy conflicts ([#62](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/62)) ([15f6646](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/15f6646d9f79650e74a97219dcf4692646db9568))
+
 ## [2.2.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.1.0...v2.2.0) (2025-08-14)
 
 
