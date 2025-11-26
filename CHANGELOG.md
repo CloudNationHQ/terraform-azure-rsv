@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.3.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.2.1...v2.3.0) (2025-11-26)
+
+
+### Features
+
+* **deps:** bump github.com/ulikunitz/xz from 0.5.10 to 0.5.14 in /tests ([#64](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/64)) ([616188b](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/616188b89c614fd3c20c6eab76633f5b757f6b62))
+* **deps:** bump golang.org/x/crypto from 0.36.0 to 0.45.0 in /tests ([#70](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/70)) ([98e8732](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/98e87321b4e7c1aa52a536e6a01a8ae3810a29ac))
+* increment all module versions to the latest ([#71](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/71)) ([a759955](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/a759955a0511143fe591ff094dba8a6fff6c1e3c))
+
 ## [2.2.1](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.2.0...v2.2.1) (2025-08-18)
 
 
