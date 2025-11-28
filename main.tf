@@ -117,7 +117,7 @@ resource "azurerm_backup_policy_file_share" "policy" {
       weekdays = retention_monthly.value.include_last_days == true ? null : retention_monthly.value.weekdays
       weeks    = retention_monthly.value.include_last_days == true ? null : retention_monthly.value.weeks
       # provider doesn't allow days with weekdays/weeks - omit when using weekdays/weeks
-      days     = (retention_monthly.value.weekdays != null || retention_monthly.value.weeks != null) ? null : retention_monthly.value.days
+      days = (retention_monthly.value.weekdays != null || retention_monthly.value.weeks != null) ? null : retention_monthly.value.days
       # provider doesn't allow include_last_days with weekdays/weeks - omit when using weekdays/weeks
       include_last_days = (retention_monthly.value.weekdays != null || retention_monthly.value.weeks != null) ? null : retention_monthly.value.include_last_days
     }
@@ -134,7 +134,7 @@ resource "azurerm_backup_policy_file_share" "policy" {
       weeks    = retention_yearly.value.include_last_days == true ? null : retention_yearly.value.weeks
       months   = retention_yearly.value.months
       # provider doesn't allow days with weekdays/weeks - omit when using weekdays/weeks
-      days     = (retention_yearly.value.weekdays != null || retention_yearly.value.weeks != null) ? null : retention_yearly.value.days
+      days = (retention_yearly.value.weekdays != null || retention_yearly.value.weeks != null) ? null : retention_yearly.value.days
       # provider doesn't allow include_last_days with weekdays/weeks - omit when using weekdays/weeks
       include_last_days = (retention_yearly.value.weekdays != null || retention_yearly.value.weeks != null) ? null : retention_yearly.value.include_last_days
     }
