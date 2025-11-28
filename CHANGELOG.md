@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.3.0...v2.3.1) (2025-11-28)
+
+
+### Bug Fixes
+
+* adjust retention vm_policy days handling for monthly and yearly backups ([#74](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/74)) ([b713cfa](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/b713cfa4136a7daaf0f4e0141113eb16b519263e))
+
 ## [2.3.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.2.1...v2.3.0) (2025-11-26)
 
 
