@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.4.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.3.1...v2.4.0) (2026-01-26)
+
+
+### Features
+
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#76](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/76)) ([e63612e](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/e63612ec3bb61e5516157380af0fc0c85b654981))
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#79](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/79)) ([6845a84](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/6845a84990c327734b60936c3ac2eb632c168e45))
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#80](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/80)) ([2e50bdd](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/2e50bdd1f2211d07b6ccd941e1a3c23d12b3cac5))
+* small cleanup release workflow ([#78](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/78)) ([9641fdd](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/9641fddc85d02fac6207530e66b167b1ccf1c447))
+
 ## [2.3.1](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.3.0...v2.3.1) (2025-11-28)
 
 
