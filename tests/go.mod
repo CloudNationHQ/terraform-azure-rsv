@@ -2,7 +2,7 @@ module github.com/cloudnationhq/terraform-azure-rsv
 
 go 1.24.3
 
-require github.com/cloudnationhq/az-cn-go-validor v1.16.0
+require github.com/cloudnationhq/az-cn-go-validor v1.10.0
 
 require (
 	github.com/agext/levenshtein v1.2.3 // indirect
