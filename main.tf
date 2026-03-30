@@ -75,6 +75,9 @@ resource "azurerm_backup_policy_file_share" "policy" {
   recovery_vault_name = azurerm_recovery_services_vault.vault.name
   timezone            = each.value.timezone
 
+  backup_tier                = each.value.backup_tier
+  snapshot_retention_in_days = each.value.snapshot_retention_in_days
+
   backup {
     frequency = each.value.backup.frequency
     time      = each.value.backup.time
