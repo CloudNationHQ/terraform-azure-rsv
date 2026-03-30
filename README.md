@@ -36,6 +36,7 @@ The following resources are used by this module:
 - [azurerm_backup_container_storage_account.container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_container_storage_account) (resource)
 - [azurerm_backup_policy_file_share.policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_policy_file_share) (resource)
 - [azurerm_backup_policy_vm.policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_policy_vm) (resource)
+- [azurerm_backup_policy_vm_workload.policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_policy_vm_workload) (resource)
 - [azurerm_backup_protected_file_share.share](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_file_share) (resource)
 - [azurerm_backup_protected_vm.vm](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_vm) (resource)
 - [azurerm_recovery_services_vault.vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/recovery_services_vault) (resource)
@@ -172,6 +173,48 @@ object({
           exclude_disk_luns = optional(list(number))
           protection_state  = optional(string)
         })), {})
+      })), {})
+      vm_workloads = optional(map(object({
+        name          = optional(string)
+        workload_type = string
+        settings = object({
+          time_zone           = string
+          compression_enabled = optional(bool, false)
+        })
+        protection_policies = list(object({
+          policy_type = string
+          backup = object({
+            frequency            = optional(string)
+            frequency_in_minutes = optional(number)
+            time                 = optional(string)
+            weekdays             = optional(set(string))
+          })
+          retention_daily = optional(object({
+            count = number
+          }), null)
+          retention_weekly = optional(object({
+            count    = number
+            weekdays = set(string)
+          }), null)
+          retention_monthly = optional(object({
+            count       = number
+            format_type = string
+            monthdays   = optional(set(number))
+            weekdays    = optional(set(string))
+            weeks       = optional(set(string))
+          }), null)
+          retention_yearly = optional(object({
+            count       = number
+            format_type = string
+            months      = set(string)
+            monthdays   = optional(set(number))
+            weekdays    = optional(set(string))
+            weeks       = optional(set(string))
+          }), null)
+          simple_retention = optional(object({
+            count = number
+          }), null)
+        }))
       })), {})
     }), {})
   })

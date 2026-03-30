@@ -258,6 +258,108 @@ resource "azurerm_backup_policy_vm" "policy" {
   }
 }
 
+# policies vm workload
+resource "azurerm_backup_policy_vm_workload" "policy" {
+  for_each = lookup(
+    lookup(var.vault, "policies", {}), "vm_workloads", {}
+  )
+
+  name = coalesce(
+    each.value.name, try(
+      join("-", [var.naming.recovery_services_vault_backup_policy, each.key]), null
+    ), each.key
+  )
+
+  resource_group_name = coalesce(
+    lookup(
+      var.vault, "resource_group_name", null
+    ), var.resource_group_name
+  )
+
+  recovery_vault_name = azurerm_recovery_services_vault.vault.name
+  workload_type       = each.value.workload_type
+
+  settings {
+    time_zone           = each.value.settings.time_zone
+    compression_enabled = each.value.settings.compression_enabled
+  }
+
+  dynamic "protection_policy" {
+    for_each = each.value.protection_policies
+
+    content {
+      policy_type = protection_policy.value.policy_type
+
+      backup {
+        frequency            = protection_policy.value.backup.frequency
+        frequency_in_minutes = protection_policy.value.backup.frequency_in_minutes
+        time                 = protection_policy.value.backup.time
+        weekdays             = protection_policy.value.backup.weekdays
+      }
+
+      dynamic "retention_daily" {
+        for_each = try(
+          protection_policy.value.retention_daily != null ? [protection_policy.value.retention_daily] : [], []
+        )
+
+        content {
+          count = retention_daily.value.count
+        }
+      }
+
+      dynamic "retention_weekly" {
+        for_each = try(
+          protection_policy.value.retention_weekly != null ? [protection_policy.value.retention_weekly] : [], []
+        )
+
+        content {
+          count    = retention_weekly.value.count
+          weekdays = retention_weekly.value.weekdays
+        }
+      }
+
+      dynamic "retention_monthly" {
+        for_each = try(
+          protection_policy.value.retention_monthly != null ? [protection_policy.value.retention_monthly] : [], []
+        )
+
+        content {
+          count       = retention_monthly.value.count
+          format_type = retention_monthly.value.format_type
+          monthdays   = retention_monthly.value.monthdays
+          weekdays    = retention_monthly.value.weekdays
+          weeks       = retention_monthly.value.weeks
+        }
+      }
+
+      dynamic "retention_yearly" {
+        for_each = try(
+          protection_policy.value.retention_yearly != null ? [protection_policy.value.retention_yearly] : [], []
+        )
+
+        content {
+          count       = retention_yearly.value.count
+          format_type = retention_yearly.value.format_type
+          months      = retention_yearly.value.months
+          monthdays   = retention_yearly.value.monthdays
+          weekdays    = retention_yearly.value.weekdays
+          weeks       = retention_yearly.value.weeks
+        }
+      }
+
+      dynamic "simple_retention" {
+        for_each = try(
+          protection_policy.value.simple_retention != null ? [protection_policy.value.simple_retention] : [], []
+        )
+
+        content {
+          count = simple_retention.value.count
+        }
+      }
+    }
+  }
+}
+
 resource "azurerm_backup_protected_vm" "vm" {
   for_each = merge([
     for policy_name, policy in lookup(var.vault, "policies", {}) != {} ? lookup(var.vault.policies, "vms", {}) : {} : {
