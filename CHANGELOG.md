@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.5.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.4.0...v2.5.0) (2026-03-30)
+
+
+### Features
+
+* add backup_tier and snapshot_retention_in_days to file share policy ([#86](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/86)) ([879ad58](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/879ad5854e493eb7cec901a1b2d04d6f35e1359e))
+* add support for vm workload backup policies ([#87](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/87)) ([f6646e4](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/f6646e4e6881161eb05868ffbe25faa9fc00a289))
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#81](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/81)) ([c816746](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/c816746a5ca4b21f5c7c7f95f9ded968e50ffee9))
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#85](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/85)) ([e16369f](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/e16369ffca74a9be76c90c3f2edceef3012755ef))
+
 ## [2.4.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.3.1...v2.4.0) (2026-01-26)
 
 
