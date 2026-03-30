@@ -18,7 +18,8 @@ module "rg" {
 }
 
 module "rsv" {
-  source = "../../"
+  source  = "cloudnationhq/rsv/azure"
+  version = "~> 2.0"
 
   naming = local.naming
 

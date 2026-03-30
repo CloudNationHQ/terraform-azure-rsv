@@ -39,7 +39,8 @@ module "network" {
 }
 
 module "rsv" {
-  source = "../../"
+  source  = "cloudnationhq/rsv/azure"
+  version = "~> 2.0"
 
   vault = {
     name                = module.naming.recovery_services_vault.name
