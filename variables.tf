@@ -124,6 +124,48 @@ variable "vault" {
           protection_state  = optional(string)
         })), {})
       })), {})
+      vm_workloads = optional(map(object({
+        name          = optional(string)
+        workload_type = string
+        settings = object({
+          time_zone           = string
+          compression_enabled = optional(bool, false)
+        })
+        protection_policies = map(object({
+          policy_type = string
+          backup = object({
+            frequency            = optional(string)
+            frequency_in_minutes = optional(number)
+            time                 = optional(string)
+            weekdays             = optional(set(string))
+          })
+          retention_daily = optional(object({
+            count = number
+          }), null)
+          retention_weekly = optional(object({
+            count    = number
+            weekdays = set(string)
+          }), null)
+          retention_monthly = optional(object({
+            count       = number
+            format_type = string
+            monthdays   = optional(set(number))
+            weekdays    = optional(set(string))
+            weeks       = optional(set(string))
+          }), null)
+          retention_yearly = optional(object({
+            count       = number
+            format_type = string
+            months      = set(string)
+            monthdays   = optional(set(number))
+            weekdays    = optional(set(string))
+            weeks       = optional(set(string))
+          }), null)
+          simple_retention = optional(object({
+            count = number
+          }), null)
+        }))
+      })), {})
     }), {})
   })
   validation {
