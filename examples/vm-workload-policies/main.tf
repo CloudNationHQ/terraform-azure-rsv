@@ -35,8 +35,8 @@ module "rsv" {
             time_zone           = "UTC"
             compression_enabled = false
           }
-          protection_policies = [
-            {
+          protection_policies = {
+            full = {
               policy_type = "Full"
               backup = {
                 frequency = "Weekly"
@@ -47,8 +47,8 @@ module "rsv" {
                 count    = 8
                 weekdays = ["Sunday"]
               }
-            },
-            {
+            }
+            log = {
               policy_type = "Log"
               backup = {
                 frequency_in_minutes = 15
@@ -57,7 +57,7 @@ module "rsv" {
                 count = 8
               }
             }
-          ]
+          }
         }
       }
     }

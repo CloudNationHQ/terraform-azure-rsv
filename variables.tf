@@ -129,7 +129,7 @@ variable "vault" {
           time_zone           = string
           compression_enabled = optional(bool, false)
         })
-        protection_policies = list(object({
+        protection_policies = map(object({
           policy_type = string
           backup = object({
             frequency            = optional(string)
