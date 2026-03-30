@@ -79,8 +79,10 @@ object({
     }), null)
     policies = optional(object({
       file_shares = optional(map(object({
-        name     = optional(string)
-        timezone = optional(string, "UTC")
+        name                       = optional(string)
+        timezone                   = optional(string, "UTC")
+        backup_tier                = optional(string)
+        snapshot_retention_in_days = optional(number)
         backup = object({
           frequency = string
           time      = optional(string)
