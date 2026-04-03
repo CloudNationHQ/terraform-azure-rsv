@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.5.0...v2.6.0) (2026-04-03)
+
+
+### Features
+
+* add missing outputs ([#88](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/88)) ([b6960e1](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/b6960e1514d5e14fec87eadcefe0773d8f729bc4))
+
 ## [2.5.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.4.0...v2.5.0) (2026-03-30)
 
 
