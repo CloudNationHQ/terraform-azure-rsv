@@ -183,7 +183,7 @@ object({
           time_zone           = string
           compression_enabled = optional(bool, false)
         })
-        protection_policies = list(object({
+        protection_policies = map(object({
           policy_type = string
           backup = object({
             frequency            = optional(string)
@@ -261,6 +261,30 @@ Default: `{}`
 ## Outputs
 
 The following outputs are exported:
+
+### <a name="output_container_storage_accounts"></a> [container\_storage\_accounts](#output\_container\_storage\_accounts)
+
+Description: Contains all backup container storage account configuration
+
+### <a name="output_policies_file_share"></a> [policies\_file\_share](#output\_policies\_file\_share)
+
+Description: Contains all file share backup policy configuration
+
+### <a name="output_policies_vm"></a> [policies\_vm](#output\_policies\_vm)
+
+Description: Contains all vm backup policy configuration
+
+### <a name="output_policies_vm_workload"></a> [policies\_vm\_workload](#output\_policies\_vm\_workload)
+
+Description: Contains all vm workload backup policy configuration
+
+### <a name="output_protected_file_shares"></a> [protected\_file\_shares](#output\_protected\_file\_shares)
+
+Description: Contains all backup protected file share configuration
+
+### <a name="output_protected_vms"></a> [protected\_vms](#output\_protected\_vms)
+
+Description: Contains all backup protected vm configuration
 
 ### <a name="output_vault"></a> [vault](#output\_vault)
 
