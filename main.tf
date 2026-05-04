@@ -165,6 +165,7 @@ resource "azurerm_backup_policy_vm" "policy" {
   recovery_vault_name            = azurerm_recovery_services_vault.vault.name
   timezone                       = each.value.timezone
   policy_type                    = each.value.policy_type
+  consistency_type               = each.value.consistency_type
   instant_restore_retention_days = each.value.instant_restore_retention_days
 
   dynamic "instant_restore_resource_group" {
