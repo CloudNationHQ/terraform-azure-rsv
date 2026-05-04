@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.6.0...v2.7.0) (2026-05-04)
+
+
+### Features
+
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#91](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/91)) ([37b4f19](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/37b4f1909a3f2af31e0d23acda658b172ce1b1e8))
+
 ## [2.6.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.5.0...v2.6.0) (2026-04-03)
 
 
