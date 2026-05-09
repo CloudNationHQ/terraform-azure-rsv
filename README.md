@@ -127,6 +127,7 @@ object({
         timezone                       = optional(string, "UTC")
         policy_type                    = optional(string, "V1")
         instant_restore_retention_days = optional(number)
+        consistency_type               = optional(string)
         instant_restore_resource_group = optional(object({
           prefix = string
           suffix = optional(string)
