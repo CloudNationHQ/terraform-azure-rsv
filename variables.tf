@@ -74,6 +74,7 @@ variable "vault" {
         name                           = optional(string)
         timezone                       = optional(string, "UTC")
         policy_type                    = optional(string, "V1")
+        consistency_type               = optional(string)
         instant_restore_retention_days = optional(number)
         instant_restore_resource_group = optional(object({
           prefix = string
@@ -229,6 +230,22 @@ variable "vault" {
       policy.backup.frequency == "Weekly" ? policy.backup.weekdays != null : true
     ])
     error_message = "When backup frequency is 'Weekly', weekdays must be specified."
+  }
+
+  validation {
+    condition = alltrue([
+      for policy_name, policy in coalesce(var.vault.policies.vms, {}) :
+      policy.consistency_type == null || policy.policy_type == "V2"
+    ])
+    error_message = "consistency_type can only be specified when policy_type is 'V2'."
+  }
+
+  validation {
+    condition = alltrue([
+      for policy_name, policy in coalesce(var.vault.policies.vms, {}) :
+      policy.consistency_type == null || policy.consistency_type == "OnlyCrashConsistent"
+    ])
+    error_message = "consistency_type must be 'OnlyCrashConsistent' when specified."
   }
 
   validation {
