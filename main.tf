@@ -166,6 +166,7 @@ resource "azurerm_backup_policy_vm" "policy" {
   timezone                       = each.value.timezone
   policy_type                    = each.value.policy_type
   instant_restore_retention_days = each.value.instant_restore_retention_days
+  consistency_type               = each.value.consistency_type
 
   dynamic "instant_restore_resource_group" {
     for_each = try(
