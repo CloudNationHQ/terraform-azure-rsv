@@ -49,6 +49,9 @@ resource "azurerm_recovery_services_vault" "vault" {
     content {
       alerts_for_all_job_failures_enabled            = var.vault.monitoring.alerts_for_all_job_failures_enabled
       alerts_for_critical_operation_failures_enabled = var.vault.monitoring.alerts_for_critical_operation_failures_enabled
+      alerts_for_all_failover_issues_enabled         = var.vault.monitoring.alerts_for_all_failover_issues_enabled
+      alerts_for_all_replication_issues_enabled      = var.vault.monitoring.alerts_for_all_replication_issues_enabled
+      email_notifications_for_site_recovery_enabled  = var.vault.monitoring.email_notifications_for_site_recovery_enabled
     }
   }
 }
