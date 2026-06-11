@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.7.0...v2.8.0) (2026-06-11)
+
+
+### Features
+
+* add missing monitoring properties to recovery services vault ([#115](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/115)) ([fbb741a](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/fbb741a422ea460ca2ab9107cd5c0491f21bfb4a))
+
 ## [2.7.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.6.0...v2.7.0) (2026-05-11)
 
 
