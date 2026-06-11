@@ -25,6 +25,9 @@ variable "vault" {
     monitoring = optional(object({
       alerts_for_all_job_failures_enabled            = optional(bool, true)
       alerts_for_critical_operation_failures_enabled = optional(bool, true)
+      alerts_for_all_failover_issues_enabled         = optional(bool, true)
+      alerts_for_all_replication_issues_enabled      = optional(bool, true)
+      email_notifications_for_site_recovery_enabled  = optional(bool, true)
     }), null)
     policies = optional(object({
       file_shares = optional(map(object({
