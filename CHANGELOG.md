@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.8.0...v3.0.0) (2026-09-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* this change causes recreates
+
+### Features
+
+* azurerm provider 5 upgrade ([#120](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/120)) ([e28d522](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/e28d5227c0792c06f1f1c93f2e66b39389f83733))
+* **deps:** bump golang.org/x/crypto from 0.45.0 to 0.52.0 in /tests ([#117](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/117)) ([f569635](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/f569635fe5f59454559df611a303ac107c65d66a))
+
 ## [2.8.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.7.0...v2.8.0) (2026-06-11)
 
 
