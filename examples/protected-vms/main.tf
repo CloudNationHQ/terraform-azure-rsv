@@ -1,13 +1,13 @@
 module "naming" {
   source  = "cloudnationhq/naming/azure"
-  version = "~> 0.25"
+  version = "~> 0.32"
 
   suffix = ["demo", "prd"]
 }
 
 module "rg" {
   source  = "cloudnationhq/rg/azure"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   groups = {
     demo = {
@@ -19,9 +19,8 @@ module "rg" {
 
 module "network" {
   source  = "cloudnationhq/vnet/azure"
-  version = "~> 9.0"
+  version = "~> 10.0"
 
-  naming = local.naming
 
   vnet = {
     name                = module.naming.virtual_network.name
@@ -44,23 +43,36 @@ module "network" {
 
 module "kv" {
   source  = "cloudnationhq/kv/azure"
-  version = "~> 4.0"
+  version = "~> 6.0"
 
-  naming = local.naming
 
   vault = {
     name                = module.naming.key_vault.name_unique
     location            = module.rg.groups.demo.location
     resource_group_name = module.rg.groups.demo.name
+
+    secrets = {
+      random_string = {
+        dcroot001 = {
+          length  = 24
+          special = false
+        }
+        dcroot002 = {
+          length  = 24
+          special = false
+        }
+      }
+    }
   }
 }
 
 module "vm" {
   source  = "cloudnationhq/vm/azure"
-  version = "~> 6.0"
+  version = "~> 8.0"
 
-  naming              = local.naming
-  keyvault            = module.kv.vault.id
+  for_each = local.vms
+
+  virtual_machine     = each.value
   resource_group_name = module.rg.groups.demo.name
   location            = module.rg.groups.demo.location
 
@@ -70,18 +82,11 @@ module "vm" {
     sku       = "2022-Datacenter"
     version   = "latest"
   }
-
-  for_each = local.vms
-
-  instance   = each.value
-  depends_on = [module.kv]
 }
 
 module "rsv" {
   source  = "cloudnationhq/rsv/azure"
-  version = "~> 2.0"
-
-  naming = local.naming
+  version = "~> 3.0"
 
   vault = {
     name                = module.naming.recovery_services_vault.name

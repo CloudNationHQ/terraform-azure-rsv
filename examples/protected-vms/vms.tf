@@ -5,8 +5,11 @@ locals {
       type = "windows"
       size = "Standard_D2s_v5"
 
-      generate_password = {
-        enable = true
+      username = "adminuser"
+      password = module.kv.secrets.dcroot001.value
+
+      os_disk = {
+        storage_account_type = "Standard_LRS"
       }
 
       interfaces = {
@@ -34,8 +37,11 @@ locals {
       type = "windows"
       size = "Standard_D4ds_v5"
 
-      generate_password = {
-        enable = true
+      username = "adminuser"
+      password = module.kv.secrets.dcroot002.value
+
+      os_disk = {
+        storage_account_type = "Standard_LRS"
       }
 
       interfaces = {
