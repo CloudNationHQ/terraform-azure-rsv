@@ -21,25 +21,25 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 5.0)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 4.0)
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 5.0)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [azurerm_backup_container_storage_account.container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_container_storage_account) (resource)
-- [azurerm_backup_policy_file_share.policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_policy_file_share) (resource)
-- [azurerm_backup_policy_vm.policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_policy_vm) (resource)
-- [azurerm_backup_policy_vm_workload.policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_policy_vm_workload) (resource)
-- [azurerm_backup_protected_file_share.share](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_file_share) (resource)
-- [azurerm_backup_protected_vm.vm](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_vm) (resource)
-- [azurerm_recovery_services_vault.vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/recovery_services_vault) (resource)
+- [azurerm_backup_container_storage_account.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_container_storage_account) (resource)
+- [azurerm_backup_policy_file_share.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_policy_file_share) (resource)
+- [azurerm_backup_policy_vm.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_policy_vm) (resource)
+- [azurerm_backup_policy_vm_workload.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_policy_vm_workload) (resource)
+- [azurerm_backup_protected_file_share.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_file_share) (resource)
+- [azurerm_backup_protected_vm.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_vm) (resource)
+- [azurerm_recovery_services_vault.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/recovery_services_vault) (resource)
 
 ## Required Inputs
 
@@ -57,11 +57,10 @@ object({
     resource_group_name                = optional(string)
     location                           = optional(string)
     sku                                = optional(string, "Standard")
-    soft_delete_enabled                = optional(bool, false)
-    immutability                       = optional(string, "Disabled")
-    cross_region_restore_enabled       = optional(bool, false)
-    storage_mode_type                  = optional(string, "GeoRedundant")
-    public_network_access_enabled      = optional(bool, true)
+    immutability                       = optional(string)
+    cross_region_restore_enabled       = optional(bool)
+    storage_mode_type                  = optional(string)
+    public_network_access_enabled      = optional(bool)
     classic_vmware_replication_enabled = optional(bool, false)
     tags                               = optional(map(string))
     identity = optional(object({
@@ -72,19 +71,19 @@ object({
       key_id                            = string
       infrastructure_encryption_enabled = bool
       user_assigned_identity_id         = optional(string)
-      use_system_assigned_identity      = optional(bool, true)
+      use_system_assigned_identity      = optional(bool)
     }), null)
     monitoring = optional(object({
-      alerts_for_all_job_failures_enabled            = optional(bool, true)
-      alerts_for_critical_operation_failures_enabled = optional(bool, true)
-      alerts_for_all_failover_issues_enabled         = optional(bool, true)
-      alerts_for_all_replication_issues_enabled      = optional(bool, true)
-      email_notifications_for_site_recovery_enabled  = optional(bool, true)
+      alerts_for_all_job_failures_enabled            = optional(bool)
+      alerts_for_critical_operation_failures_enabled = optional(bool)
+      alerts_for_all_failover_issues_enabled         = optional(bool)
+      alerts_for_all_replication_issues_enabled      = optional(bool)
+      email_notifications_for_site_recovery_enabled  = optional(bool)
     }), null)
     policies = optional(object({
       file_shares = optional(map(object({
         name                       = optional(string)
-        timezone                   = optional(string, "UTC")
+        timezone                   = optional(string)
         backup_tier                = optional(string)
         snapshot_retention_in_days = optional(number)
         backup = object({
@@ -109,15 +108,15 @@ object({
             weekdays          = optional(set(string))
             weeks             = optional(set(string))
             days              = optional(set(number))
-            include_last_days = optional(bool, false)
+            include_last_days = optional(bool)
           }), null)
           yearly = optional(object({
             count             = optional(number)
-            weekdays          = optional(set(string), [])
-            weeks             = optional(set(string), [])
-            months            = optional(set(string), [])
+            weekdays          = optional(set(string))
+            weeks             = optional(set(string))
+            months            = optional(set(string))
             days              = optional(set(number))
-            include_last_days = optional(bool, false)
+            include_last_days = optional(bool)
           }), null)
         })
         protected_shares = optional(map(object({
@@ -127,8 +126,8 @@ object({
       })), {})
       vms = optional(map(object({
         name                           = optional(string)
-        timezone                       = optional(string, "UTC")
-        policy_type                    = optional(string, "V1")
+        timezone                       = optional(string)
+        policy_type                    = optional(string)
         consistency_type               = optional(string)
         instant_restore_retention_days = optional(number)
         instant_restore_resource_group = optional(object({
@@ -159,18 +158,18 @@ object({
           }), null)
           monthly = optional(object({
             count             = optional(number)
-            weekdays          = optional(set(string), [])
-            weeks             = optional(set(string), [])
-            days              = optional(list(number), [])
-            include_last_days = optional(bool, false)
+            weekdays          = optional(set(string))
+            weeks             = optional(set(string))
+            days              = optional(set(number))
+            include_last_days = optional(bool)
           }), null)
           yearly = optional(object({
             count             = optional(number)
-            weekdays          = optional(set(string), [])
-            weeks             = optional(set(string), [])
-            months            = optional(set(string), [])
-            days              = optional(list(number), [])
-            include_last_days = optional(bool, false)
+            weekdays          = optional(set(string))
+            weeks             = optional(set(string))
+            months            = optional(set(string))
+            days              = optional(set(number))
+            include_last_days = optional(bool)
           }), null)
         })
         protected_vms = optional(map(object({
@@ -185,7 +184,7 @@ object({
         workload_type = string
         settings = object({
           time_zone           = string
-          compression_enabled = optional(bool, false)
+          compression_enabled = optional(bool)
         })
         protection_policies = map(object({
           policy_type = string
@@ -237,14 +236,6 @@ Description: default azure region to be used.
 Type: `string`
 
 Default: `null`
-
-### <a name="input_naming"></a> [naming](#input\_naming)
-
-Description: contains naming convention
-
-Type: `map(string)`
-
-Default: `{}`
 
 ### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
 
@@ -315,11 +306,7 @@ To update the module's documentation run `make doc`
 
 We welcome contributions from the community! Whether it's reporting a bug, suggesting a new feature, or submitting a pull request, your input is highly valued.
 
-For more information, please see our contribution [guidelines](./CONTRIBUTING.md). <br><br>
-
-<a href="https://github.com/cloudnationhq/terraform-azure-rsv/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=cloudnationhq/terraform-azure-rsv" />
-</a>
+For more information, please see our contribution [guidelines](./CONTRIBUTING.md).
 
 ## License
 
@@ -329,4 +316,3 @@ MIT Licensed. See [LICENSE](./LICENSE) for full details.
 
 - [Documentation](https://learn.microsoft.com/en-us/azure/backup/)
 - [Rest Api](https://learn.microsoft.com/en-us/rest/api/recoveryservices/)
-- [Rest Api Specs](https://github.com/Azure/azure-rest-api-specs/blob/1f449b5a17448f05ce1cd914f8ed75a0b568d130/specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-02-01/bms.json)
