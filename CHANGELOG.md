@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v3.0.0...v3.1.0) (2026-10-20)
+
+
+### Features
+
+* **deps:** bump github.com/klauspost/compress in /tests ([#121](https://github.com/CloudNationHQ/terraform-azure-rsv/issues/121)) ([5d6bac3](https://github.com/CloudNationHQ/terraform-azure-rsv/commit/5d6bac3f71e288419d1f5db2b425cfb701d45a24))
+
 ## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-rsv/compare/v2.8.0...v3.0.0) (2026-09-08)
 
 
